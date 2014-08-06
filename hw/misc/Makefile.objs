@@ -22,6 +22,7 @@ common-obj-$(CONFIG_MACIO) += macio/
 ifeq ($(CONFIG_PCI), y)
 obj-$(CONFIG_KVM) += ivshmem.o
 obj-$(CONFIG_LINUX) += vfio.o
+common-$(CONFIG_APOHW) += apohw.o
 endif
 
 obj-$(CONFIG_REALVIEW) += arm_sysctl.o
