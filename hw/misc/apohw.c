@@ -473,9 +473,9 @@ static int apoterm_hd44780(uint8_t data, int rw, int rs, struct hd44780 *lcd)
 
 			} else if (data & APOTERM_HD44780_ENTRY_MODE_SET_m) {
 				if (data & (1 << 1)) /* Increment */
-					lcd->cursor_incr = -1;
-				else
 					lcd->cursor_incr = 1;
+				else
+					lcd->cursor_incr = -1;
 
 				if (data & (1 << 0)) { /* Shifts the entire display ... */
 					// FIXME
