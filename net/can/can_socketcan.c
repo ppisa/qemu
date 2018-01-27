@@ -1,5 +1,5 @@
 /*
- * CAN c support to connect to the Linux host SocketCAN interfaces
+ * CAN support to connect to the Linux host SocketCAN interfaces
  *
  * Copyright (c) 2013-2014 Jin Yang
  * Copyright (c) 2014-2018 Pavel Pisa
