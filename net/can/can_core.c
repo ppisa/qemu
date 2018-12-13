@@ -30,6 +30,7 @@
 #include "qapi/error.h"
 #include "net/can_emu.h"
 #include "qom/object_interfaces.h"
+#include "hw/qdev-properties.h"
 
 struct CanBusState {
     Object object;
@@ -129,6 +130,20 @@ static const TypeInfo can_bus_info = {
         { }
     }
 };
+
+
+void can_bus_client_link_bus(Object *obj, const char *prop_name,
+                             CanBusState **canbusp,
+                             void (*check)(const Object *, const char *,
+                                            Object *, Error **),
+                             ObjectPropertyLinkFlags flags, Error **errp)
+{
+    object_property_add_link(obj, prop_name, TYPE_CAN_BUS,
+                             (Object **)canbusp,
+                             check,
+                             flags, errp);
+}
+
 
 static void can_bus_register_types(void)
 {

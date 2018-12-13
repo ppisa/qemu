@@ -214,14 +214,12 @@ static void pcm3680i_pci_instance_init(Object *obj)
 {
     Pcm3680iPCIState *d = PCM3680i_PCI_DEV(obj);
 
-    object_property_add_link(obj, "canbus0", TYPE_CAN_BUS,
-                             (Object **)&d->canbus[0],
-                             qdev_prop_allow_set_link_before_realize,
-                             0, &error_abort);
-    object_property_add_link(obj, "canbus1", TYPE_CAN_BUS,
-                             (Object **)&d->canbus[1],
-                             qdev_prop_allow_set_link_before_realize,
-                             0, &error_abort);
+    can_bus_client_link_bus(obj, "canbus0", &d->canbus[0],
+                            qdev_prop_allow_set_link_before_realize,
+                            0, &error_abort);
+    can_bus_client_link_bus(obj, "canbus1", &d->canbus[1],
+                            qdev_prop_allow_set_link_before_realize,
+                            0, &error_abort);
 }
 
 static void pcm3680i_pci_class_init(ObjectClass *klass, void *data)

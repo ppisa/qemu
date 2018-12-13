@@ -57,6 +57,10 @@ static void can_host_connect(CanHostState *ch, Error **errp)
         return;
     }
 
+    if (ch->bus == NULL) {
+        error_setg(errp, "bus is not specified for given device.");
+        return;
+    }
     can_bus_insert_client(ch->bus, &ch->bus_client);
 }
 
@@ -74,11 +78,10 @@ static void can_host_instance_init(Object *obj)
 {
     CanHostState *ch = CAN_HOST(obj);
 
-    object_property_add_link(obj, "canbus", TYPE_CAN_BUS,
-                             (Object **)&ch->bus,
-                             object_property_allow_set_link,
+    can_bus_client_link_bus(obj, "canbus", &ch->bus,
+                            object_property_allow_set_link,
                              OBJ_PROP_LINK_STRONG,
-                             &error_abort);
+                            &error_abort);
 }
 
 static void can_host_class_init(ObjectClass *klass,

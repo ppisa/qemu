@@ -120,4 +120,10 @@ int can_bus_client_set_filters(CanBusClientState *,
                                const struct qemu_can_filter *filters,
                                size_t filters_cnt);
 
+void can_bus_client_link_bus(Object *obj, const char *prop_name,
+                             CanBusState **canbusp,
+                             void (*check)(const Object *, const char *,
+                                            Object *, Error **),
+                             ObjectPropertyLinkFlags flags, Error **errp);
+
 #endif
